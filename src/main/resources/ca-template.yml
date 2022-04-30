@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: AWS SAM template for the AWS::CodeArtifact::Repository resource type
+Resources:
+  BetaCodeArtifactDomain:
+    Type: 'AWS::CodeArtifact::Domain'
+    Properties:
+      DomainName: "beta-com-company-codeartifacts"
+  BetaCodeArtifactUpstreamRepository:
+    Type: 'AWS::CodeArtifact::Repository'
+    Properties:
+      RepositoryName: "beta-com-company-codeartifacts-repository"
+      DomainName: !GetAtt BetaCodeArtifactDomain.Name
+      ExternalConnections:
+        - public:maven-central
+  ProdCodeArtifactDomain:
+    Type: 'AWS::CodeArtifact::Domain'
+    Properties:
+      DomainName: "prod-com-company-codeartifacts"
+  ProdCodeArtifactUpstreamRepository:
+    Type: 'AWS::CodeArtifact::Repository'
+    Properties:
+      RepositoryName: "prod-com-company-codeartifacts-repository"
+      DomainName: !GetAtt ProdCodeArtifactDomain.Name
+      ExternalConnections:
+        - public:maven-central
